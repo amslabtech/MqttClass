@@ -41,7 +41,8 @@ public:
 	/** Subscribe to the given topic */
 	void subscribe(const std::string &topic);
 	
-	void publish(const std::string &topic, const std::string &message);
+	//void publish(const std::string &topic, const std::string &message);
+	void publish(const std::string &topic, void* _data, int _len);
 	
 	/**
 	  * Connects to the given remote host
@@ -56,11 +57,14 @@ public:
 	/** Method called then an error occurred */
 	virtual void onError(const char* msg) { (void)msg; }
 	/** Method called when a new message arrives */
-	virtual void onMessage(std::string topic, std::string message) { (void)topic; (void)message; }
+//	virtual void onMessage(std::string topic, std::string message) { (void)topic; (void)message; }
+	// virtual void onMessage(std::string topic, void* message, int len) { (void)topic; (void*)message; }
+	virtual void onMessage(std::string topic, void* message, int len) { }
 	
 	/** Loop through messages. This call usually blocks until the connection is closed
 	  *@param tryReconnect if true, the client tries to reconnect if an error occurs */
 	void loop(const bool tryReconnect = true);
+	void loop_start(const bool tryReconnect = true);
 	
 	/** Cleanup mosquitto library. This call should be called before program termination */
 	static void cleanup_library();
@@ -106,9 +110,9 @@ static void mosquitto_callback_on_message(struct mosquitto *mosq_obj, void *obj,
 	std::stringstream ss;
 	const int len = mosq_message->payloadlen;
 	char* payload = (char*)mosq_message->payload;
-	for(int i=0;i<len;i++) ss << (char)(payload[i]);
-	
-	mosq->onMessage(topic, ss.str());
+//	for(int i=0;i<len;i++) ss << (char)(payload[i]);
+//	mosq->onMessage(topic, ss.str());
+	mosq->onMessage(topic, payload, len);
 }
 
 
@@ -169,9 +173,10 @@ void Mosquitto::subscribe(const std::string &topic) {
 		throw mosquitto_strerror(ret);
 }
 
-void Mosquitto::publish(const std::string &topic, const std::string &message) {
-	const char *payload = message.c_str();
-	const int len = (int)message.size();
+//void Mosquitto::publish(const std::string &topic, const std::string &message) {
+void Mosquitto::publish(const std::string &topic, void* payload, int len) {
+//	const char *payload = message.c_str();
+//	const int len = (int)message.size();
 	
 	const int qos = 0;
 	int ret = mosquitto_publish(this->mosq, NULL, topic.c_str(), len, (const void*)payload, qos, false);
@@ -184,6 +189,11 @@ void Mosquitto::close() {
 	this->running = false;
 	mosquitto_disconnect(this->mosq);
 }
+
+void Mosquitto::loop_start(const bool tryReconnect) {
+	mosquitto_loop_start(this->mosq);
+}
+
 
 void Mosquitto::loop(const bool tryReconnect) {
 	int errorCounter = 0;
