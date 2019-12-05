@@ -5,7 +5,7 @@
 #include <iostream>
 #include <time.h>
 #include <sys/time.h>
-#include <mosquitto.hpp>		// c++ wrapper for mosquitto
+#include "mosquitto.hpp"		// c++ wrapper for mosquitto
 #include "datastructure.hpp"	// my data types
 
 int main()
