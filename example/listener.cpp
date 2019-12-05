@@ -5,8 +5,8 @@
 #include <iostream>
 #include <time.h>
 #include <sys/time.h>
-#include "mosquitto.hpp"
-#include "datastruct.hpp"
+#include <mosquitto.hpp>		// c++ wrapper of mosquitto
+#include "datastructure.hpp"	// my data structure
 
 class MyMosq : public Mosquitto {
   protected:
@@ -33,7 +33,8 @@ void MyMosq::onMessage(std::string _topic, void* _data, int _len)
 {
 	gettimeofday(&ts,NULL);
 	bcopy(_data, (char*)&data, sizeof(data));		
-	std::cout << "comm-time:" << ts.tv_usec - data.ts.tv_usec << " usec,";
+	int32_t diff = (ts.tv_sec-data.ts.tv_sec)*1000000 + ts.tv_usec-data.ts.tv_usec;
+	std::cout << std::setw(5) << diff << " usec,";
 	data.print();
 }
 

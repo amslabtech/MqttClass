@@ -3,8 +3,15 @@ project(mqttclass)
 
 set(CMAKE_CXX_FLAGS "-O2 -std=c++11 -Wall")
 
-add_executable(mqttclass_talker src/talker.cpp)
-add_executable(mqttclass_listener src/listener.cpp)
+add_subdirectory(src)
+add_subdirectory(example)
+
+add_executable(mqttclass_talker example/talker.cpp)
+add_executable(mqttclass_listener example/listener.cpp)
+
+target_include_directories(mqttclass_talker PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(mqttclass_listener  PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
 target_link_libraries(mqttclass_talker mosquitto)
 target_link_libraries(mqttclass_listener mosquitto)
 
