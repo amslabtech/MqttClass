@@ -11,7 +11,7 @@
 
 struct DataStructure {
 	int32_t id;
-	struct timeval ts;
+//	struct timeval ts;
 	float  x[3];	// orientation (roll, pitch, yaw)
 	float  gx[3];	// gyros
 	float  ax[3];	// accelarations
@@ -20,8 +20,8 @@ struct DataStructure {
 	void print() {
 		std::cout
 		<< std::setw( 6) << id
-		<< std::setw(12) << ts.tv_sec
-		<< std::setw( 7) << ts.tv_usec
+//		<< std::setw(12) << ts.tv_sec
+//		<< std::setw( 7) << ts.tv_usec
 		<< std::setw( 7) <<  x[0]
 		<< std::setw( 7) <<  x[1]
 		<< std::setw( 7) <<  x[2]

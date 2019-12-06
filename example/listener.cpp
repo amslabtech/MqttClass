@@ -33,15 +33,16 @@ void MyMosq::onMessage(std::string _topic, void* _data, int _len)
 {
 	gettimeofday(&ts,NULL);
 	bcopy(_data, (char*)&data, sizeof(data));		
-	int32_t diff = (ts.tv_sec-data.ts.tv_sec)*1000000 + ts.tv_usec-data.ts.tv_usec;
-	std::cout << std::setw(5) << diff << " usec,";
+//	int32_t diff = (ts.tv_sec-data.ts.tv_sec)*1000000 + ts.tv_usec-data.ts.tv_usec;
+//	std::cout << std::setw(5) << diff << " usec,";
 	data.print();
 }
 
 int main()
 {
 	// const char* ip_addr  = "192.168.0.62";
-	const char* ip_addr  = "localhost";
+	const char* ip_addr  = "192.168.1.25";
+	// const char* ip_addr  = "localhost";
 	const char* topic    = "topic1";
 	const char* username = "listener1";
 	const char* password = "mqtt";

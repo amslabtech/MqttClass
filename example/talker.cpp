@@ -13,11 +13,12 @@ int main()
 	Mosquitto talker1;
 
 	// const char* ip_addr  = "192.168.0.62";
-	const char* ip_addr  = "localhost";
+	const char* ip_addr  = "192.168.1.25";
+	// const char* ip_addr  = "localhost";
 	const char* topic    = "topic1";
 	const char* username = "talker1";
 	const char* password = "mqtt";
-	struct timeval ts;
+//	struct timeval ts;
 
 	talker1.set_username_password(username,password);
 
@@ -28,9 +29,9 @@ int main()
 
 	for(int i=0; i<10000; i++) {
 		float x = i/100.0F;	// test data
-		gettimeofday(&ts, NULL);
+		//gettimeofday(&ts, NULL);
 		DataStructure data = {
-			i, ts, x,x+1,x+2,  x+3,x+4,x+5,  x+6, x+7, x+8, x+9, x+10, x+11
+			i, x,x+1,x+2,  x+3,x+4,x+5,  x+6, x+7, x+8, x+9, x+10, x+11
 		};
 
 		talker1.publish(topic,(void*)&data,sizeof(data));
