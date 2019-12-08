@@ -15,14 +15,7 @@ target_link_libraries(mqttclass_talker mosquitto)
 target_link_libraries(mqttclass_listener mosquitto)
 
 INSTALL(
-	TARGETS mqttclass_talker mqttclass_listener
-	EXPORT ${PROJECT_NAME}-export
-	RUNTIME DESTINATION bin/${PROJECT_NAME}
-)
-
-INSTALL(
-	EXPORT ${PROJECT_NAME}-export
-	FILE ${PROJECT_NAME}-config.cmake
-	DESTINATION share/cmake/${PROJECT_NAME}
+	FILES ${PROJECT_SOURCE_DIR}/include/mosquitto.hpp
+	DESTINATION /usr/local/include
 )
 
