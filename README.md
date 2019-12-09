@@ -50,3 +50,4 @@ example ディレクトリにある，
 - cd build
 - cmake ..
 - make
+- sudo make install
