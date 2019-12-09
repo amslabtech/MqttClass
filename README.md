@@ -46,6 +46,7 @@ example ディレクトリにある，
 
 ## How to make
 ```
+git clone https://github.com/amslabtech/MqttClass.git
 cd MqttClass
 mkdir build
 cd build
