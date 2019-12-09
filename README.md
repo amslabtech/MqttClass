@@ -45,9 +45,13 @@ example ディレクトリにある，
 
 
 ## How to make
-- cd MqttClass
-- mkdir build
-- cd build
-- cmake ..
-- make
-- sudo make install
+```
+cd MqttClass
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+```
+
+
