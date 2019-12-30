@@ -8,13 +8,16 @@
 #include "mosquitto.hpp"		// c++ wrapper for mosquitto
 #include "datastructure.hpp"	// my data types
 
-int main()
+int main(int argc, char* argv[])
 {
 	Mosquitto talker1;
 
-	// const char* ip_addr  = "192.168.0.62";
-	const char* ip_addr  = "192.168.1.25";
-	// const char* ip_addr  = "localhost";
+	char const * ip_addr  = NULL;
+	if(argc>1) {
+		ip_addr  = argv[1];
+	} else {
+		ip_addr  = "localhost";
+	}
 	const char* topic    = "topic1";
 	const char* username = "talker1";
 	const char* password = "mqtt";
